@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Probabilidad - Fusibles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="glass-panel">
+            <div class="header-content">
+                <div class="logos">
+                    <img src="https://logos-world.net/wp-content/uploads/2022/06/IPN-Logo.png" alt="Logo IPN" class="school-logo">
+                    <img src="https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png" alt="Logo ESCOM" class="school-logo">
+                </div>
+                <div class="titles">
+                    <h1>Probabilidad y Estadística</h1>
+                    <h2>Simulador de Extracción sin Reemplazo</h2>
+                </div>
+                <div class="team-info">
+                    <h3>Integrantes:</h3>
+                    <div class="team-list">
+                        <ul>
+                            <li>Frías Aparicio Elliot Etian</li>
+                            <li>Reyes Salazar Diego</li>
+                            <li>Rivas Martines Job Santiago</li>
+                        </ul>
+                        <ul>
+                            <li>Uribe Ramos Jorge Iván</li>
+                            <li>Astudillo Pérez Edwin Uriel</li>
+                            <li>Quintero Mercado Nataly Mariel</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="problem-container glass-panel" style="margin-bottom: 24px; padding: 20px;">
+                <p style="font-weight: 600; color: #000; margin-bottom: 10px;">Enunciado del Problema:</p>
+                <p id="problem-statement" style="font-style: italic; color: var(--text-secondary); margin-bottom: 5px; font-size: 1.1rem;">"Suponga que tenemos una caja de fusibles que contiene <span class="val-N" style="font-weight: 600; color: #000;">20</span> unidades, de las cuales <span class="val-B" style="font-weight: 600; color: #000;">15</span> están en buen estado y <span class="val-D" style="font-weight: 600; color: #000;">5</span> defectuosos. Si se seleccionan 2 fusibles al azar y se retiran de la caja, uno después de otro, sin reemplazar el primero, ¿cuáles son las probabilidades para esos 2 fusibles?"</p>
+            </div>
+            
+            <div class="main-layout">
+                <section class="control-panel glass-panel">
+                    <h2>1. Configuración de la Caja</h2>
+                    
+                    <div class="drag-source-area">
+                        <p>Arrastra fusibles a la caja o usa los controles manuales.</p>
+                        <div class="fuse-source">
+                            <div class="fuse good" draggable="true" id="source-good">
+                                <img src="buenestado.png" alt="Fusible Bueno" class="fuse-img">
+                                <span>Buen Estado</span>
+                            </div>
+                            <div class="fuse bad" draggable="true" id="source-bad">
+                                <img src="defectuoso.png" alt="Fusible Defectuoso" class="fuse-img">
+                                <span>Defectuoso</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="manual-controls">
+                        <h3>Edición Manual</h3>
+                        <div class="control-group">
+                            <label>Buenos:</label>
+                            <button id="btn-minus-good" class="icon-btn">-</button>
+                            <span id="count-good-input">15</span>
+                            <button id="btn-plus-good" class="icon-btn">+</button>
+                        </div>
+                        <div class="control-group">
+                            <label>Defectuosos:</label>
+                            <button id="btn-minus-bad" class="icon-btn">-</button>
+                            <span id="count-bad-input">5</span>
+                            <button id="btn-plus-bad" class="icon-btn">+</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="simulator-panel glass-panel">
+                    <h2>2. Simulador</h2>
+                    
+                    <div class="box-container" id="fuse-box">
+                        <div class="box-status">Total: <span id="total-fuses">20</span> (Buenos: <span id="box-good-count">15</span>, Malos: <span id="box-bad-count">5</span>)</div>
+                        <div class="box" id="drop-zone">
+                        </div>
+                    </div>
+
+                    <div class="action-area">
+                        <button id="btn-draw" class="primary-btn">Extraer 2 Fusibles</button>
+                    </div>
+
+                    <div class="animation-stage" id="animation-stage">
+                        <h3>Resultado de Extracción:</h3>
+                        <div class="drawn-fuses">
+                            <div class="drawn-slot" id="slot-1">?</div>
+                            <div class="drawn-slot" id="slot-2">?</div>
+                        </div>
+                        <div id="draw-result-text" class="result-text"></div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="math-layout">
+                <section class="math-panel glass-panel">
+                    <h2 style="margin-bottom: 10px;">3. Análisis Matemático</h2>
+                    <p class="math-intro" style="font-weight: 600; color: #000;">Tema: Probabilidad de Eventos Dependientes (Extracción sin reemplazo)</p>
+                    <p class="math-vars" style="color: var(--text-primary); margin-bottom: 20px;">Donde los fusibles totales \(N=\) <span id="var-N" style="font-weight: bold;">20</span>, los fusibles en buen estado \(B=\) <span id="var-B" style="font-weight: bold;">15</span>, y los fusibles defectuosos \(D=\) <span id="var-D" style="font-weight: bold;">5</span>.</p>
+                    
+                    <div class="math-results">
+                        <div class="math-card">
+                            <h4>Ambos Defectuosos (D, D)</h4>
+                            <div class="formula">$$ \frac{D}{N} \cdot \frac{D-1}{N-1} $$</div>
+                            <div class="calculation" id="calc-dd">$$ \frac{5}{20} \cdot \frac{4}{19} $$</div>
+                            <div class="final-prob" id="prob-dd">= 0.0526 = 5.26%</div>
+                        </div>
+
+                        <div class="math-card">
+                            <h4>Ambos Buenos (B, B)</h4>
+                            <div class="formula">$$ \frac{B}{N} \cdot \frac{B-1}{N-1} $$</div>
+                            <div class="calculation" id="calc-bb">$$ \frac{15}{20} \cdot \frac{14}{19} $$</div>
+                            <div class="final-prob" id="prob-bb">= 0.5526 = 55.26%</div>
+                        </div>
+
+                        <div class="math-card">
+                            <h4>Uno y Uno (B,D) o (D,B)</h4>
+                            <div class="formula">$$ \left(\frac{B}{N} \cdot \frac{D}{N-1}\right) + \left(\frac{D}{N} \cdot \frac{B}{N-1}\right) $$</div>
+                            <div class="calculation" id="calc-mixed">$$ \left(\frac{15}{20} \cdot \frac{5}{19}\right) + \left(\frac{5}{20} \cdot \frac{15}{19}\right) $$</div>
+                            <div class="final-prob" id="prob-mixed">= 0.3947 = 39.47%</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
