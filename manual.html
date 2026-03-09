@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - Simulador de Probabilidad</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="icon.png">
+    <style>
+        .manual-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            color: var(--text-primary);
+        }
+        
+        .manual-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--glass-border);
+        }
+
+        .manual-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #000000, #201f21);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            background: rgba(171, 171, 171, 0.1);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px dashed var(--glass-border);
+        }
+
+        .section h2 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .section p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+        
+        .section ul {
+            padding-left: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background: var(--accent-blue);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-blue-hover);
+        }
+        
+        .highlight {
+            font-weight: 600;
+            color: var(--text-primary);
+            background: rgba(0,0,0,0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container" style="align-items: center; padding-top: 40px;">
+        <div class="manual-container">
+            <div class="manual-header">
+                <h1>Manual de Usuario</h1>
+                <p style="color: var(--text-secondary); font-size: 1.1rem;">Guía de uso para el Simulador de Probabilidad de Fusibles</p>
+            </div>
+
+            <div class="section">
+                <h2>1. Introducción al Simulador</h2>
+                <p>Este simulador fue diseñado para ejemplificar el modelo de <strong>probabilidades de eventos dependientes (extracción sin reemplazo)</strong>.</p>
+                <p>La aplicación permite visualizar matemáticamente de forma dinámica cómo cambian las probabilidades al modificar el tamaño de nuestra muestra total (fusibles en una caja).</p>
+            </div>
+
+            <div class="section">
+                <h2>2. Configuración de la Caja</h2>
+                <p>Para inicializar el problema, debes establecer la cantidad de fusibles que habrá en la caja receptora. Tienes dos métodos para hacerlo:</p>
+                <ul>
+                    <li><span class="highlight">Método Visual (Arrastrar y Soltar):</span> Puedes hacer clic mantenido sobre los iconos de fusible en la zona izquierda, arrastrarlos hacia el contenedor derecho ("2. Simulador") y soltarlos frente a la zona punteada. Esto agregará instantáneamente el componente al cálculo.</li>
+                    <li><span class="highlight">Método Manual (Botones):</span> Usando el panel "Edición Manual", presiona los botones circulares <strong>+</strong> y <strong>-</strong> respectivos a fusibles Buenos y Defectuosos. Los valores reflejarán inmediatamente la configuración deseada en la caja simuladora.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>3. Realizar Extraxión (Simulación Visual)</h2>
+                <p>Una vez configurada la caja con al menos 2 fusibles totales, puedes pulsar el botón azul <span class="highlight">"Extraer 2 Fusibles"</span>.</p>
+                <p>Esto iniciará una animación basada en la aleatoriedad, donde el sistema obtendrá computacionalmente 2 fusibles, evaluando las posibilidades basado en la configuración guardada de la caja en ese instante. Las piezas extraídas aparecerán en la pantalla inferior confirmando tu "Resultado de Extracción". <em>Nota: Visualmente y por conveniencia práctica, la extracción no elimina los fusibles de tu configuración permanentemente, para permitir simulaciones continuas sin reconfigurar manualmente a cada paso.</em></p>
+            </div>
+
+            <div class="section">
+                <h2>4. Leer el Análisis Matemático</h2>
+                <p>La sección final de la página web te otorga un desglose matemático del ejemplo formulado:</p>
+                <ul>
+                    <li>El enunciado del texto superior se formará de acuerdo a los valores actuales definidos en la caja.</li>
+                    <li>Las ecuaciones formales se construyen con variables exactas evaluadas en tiempo real.</li>
+                    <li>Se otorgan fórmulas independientes para escenarios <span class="highlight">Dependientes Condicionales</span>: 
+                        <ul>
+                            <li>Obtener dos fusibles defectuosos.</li>
+                            <li>Obtener dos fusibles buenos.</li>
+                            <li>Un caso compuesto de obtener un fusible defectuoso y uno bueno indistintamente de su orden de extracción.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>Los resultados se actualizarán a notación fraccional, punto decimal y de porcentaje automáticamente cada que la configuración de la caja cambie.</p>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="index.html" class="back-link">← Volver al Simulador</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
